@@ -1,4 +1,6 @@
 import fs from 'fs';
+import chalk from 'chalk';
+
 const getNotes = () => {
     return 'lorem ipsum dolor sit amet consectetur adipisicing elit...';
 }
@@ -21,13 +23,14 @@ const addNotes = (title, body) => {
 const removeNotes = (title) => {
     const notes = loadNotes();
     const notesToKeep = notes.filter((note) => note.title !== title);
-    if (notes.length === notesToKeep.length) {
-        console.log('No note found!');
-        return;
-    }
-    saveNotes(notesToKeep);
 
-}
+    if (notes.length > notesToKeep.length) {
+        saveNotes(notesToKeep);
+        console.log(chalk.green('Note removed'));
+    } else {
+        console.log(chalk.red('No note found!'));
+    }
+};
 
 const saveNotes = (notes) => {
     const dataJSON = JSON.stringify(notes);
