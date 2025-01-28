@@ -1,0 +1,6 @@
+filter skapar en ny array av de element som är true enligt villkoret.
+
+Man importerar funktioner genom import {myFunction} from 'myfile.js'.
+För att importera många funktioner kan man skriva import * as myObject from 'myfile.js'
+och kan kalla på funktionerna genom myObject.myFunction()
+
