@@ -20,12 +20,13 @@ const addNotes = (title, body) => {
 
 const removeNotes = (title) => {
     const notes = loadNotes();
-    const notesToRemove = notes.filter((note) => note.title === title);
-    if (notesToRemove.length === 0) {
-        console.log('Note not found!');
+    const notesToKeep = notes.filter((note) => note.title !== title);
+    if (notes.length === notesToKeep.length) {
+        console.log('No note found!');
         return;
     }
-    console.log(`Note with title: ${title} removed!`);
+    saveNotes(notesToKeep);
+
 }
 
 const saveNotes = (notes) => {
