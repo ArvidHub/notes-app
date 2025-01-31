@@ -1,6 +1,34 @@
 [
     {
-        "title": "ny titel bla bla",
-        "body": "ny bla bla"
+        "title": "Note 1",
+        "body": "This is the body of note 1"
+    },
+    {
+        "title": "Note 2",
+        "body": "This is the body of note 2"
+    },
+    {
+        "title": "Note 3",
+        "body": "This is the body of note 3"
+    },
+    {
+        "title": "Note 4",
+        "body": "This is the body of note 4"
+    },
+    {
+        "title": "Note 5",
+        "body": "This is the body of note 5"
+    },
+    {
+        "title": "Note 6",
+        "body": "This is the body of note 6"
+    },
+    {
+        "title": "Note 7",
+        "body": "This is the body of note 7"
+    },
+    {
+        "title": "Note 8",
+        "body": "This is the body of note 8"
     }
 ]

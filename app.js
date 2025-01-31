@@ -49,14 +49,14 @@ yargs(hideBin(process.argv))
             }
         },
         handler(argv) {
-            console.log('Reading the note', argv);
+            notes.readNote(argv.title);
         }
     })
     .command({
         command: 'list',
         describe: 'List all notes',
         handler() {
-            console.log('Listing all notes');
+            notes.listNotes();
         }
     })
     .parse();
