@@ -1,4 +1,6 @@
-filter skapar en ny array av de element som är true enligt villkoret.
+.filter skapar en ny array av de element som är true enligt villkoret.
+
+.find används för att hitta ett enkilt element i en array enligt villkoret.
 
 Man importerar funktioner genom import {myFunction} from 'myfile.js'.
 För att importera många funktioner kan man skriva import * as myObject from 'myfile.js'
