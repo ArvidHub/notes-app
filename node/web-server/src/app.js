@@ -2,11 +2,15 @@ import path, { dirname } from 'path';
 import express from 'express';
 
 const app = express();
+
+// define paths for Express config
 const publicDirectoryPath = path.join(dirname('./'), '../public');
 const viewsPath = path.join(dirname('./'), '../views');
 
 app.set('view engine', 'hbs');
 app.set('views', viewsPath);
+
+// setup static directory to serve
 app.use(express.static(publicDirectoryPath));
 
 app.get('/', (req, res) => {
