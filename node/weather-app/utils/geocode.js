@@ -7,16 +7,16 @@ const geocode = (address, callback) => {
     }
     const url = `https://api.mapbox.com/search/geocode/v6/forward?q=${encodeURIComponent(address)}&access_token=pk.eyJ1Ijoia2xhc29obHNzb24iLCJhIjoiY202bTB5cTl0MGcxajJsczcxaGR6c21qcSJ9.SrjYU1xXw_b30Ogev5_iOw&limit=1`;
 
-    request({ url: url, json: true }, (error, response) => {
+    request({ url: url, json: true }, (error, { body }) => {
         if (error) {
             callback('Unable to connect to location services!', undefined);
-        } else if (response.body.features.length === 0) {
+        } else if (body.features.length === 0) {
             callback('Unable to find location. Try another search.', undefined);
         } else {
             callback(undefined, {
-                longitude: response.body.features[0].geometry.coordinates[0],
-                latitude: response.body.features[0].geometry.coordinates[1],
-                location: response.body.features[0].properties.place_formatted
+                longitude: body.features[0].geometry.coordinates[0],
+                latitude: body.features[0].geometry.coordinates[1],
+                location: body.features[0].properties.place_formatted
             });
         }
     });

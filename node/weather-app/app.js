@@ -3,15 +3,15 @@ import { forecast } from "./utils/forecast.js";
 
 const locationInput = process.argv[2];
 
-geocode(locationInput, (error, data) => {
+geocode(locationInput, (error, { latitude, longitude, location } = {}) => {
     if (error) {
         return console.log('Error', error);
     }
-    forecast(data.latitude, data.longitude, (error, forecastData) => {
+    forecast(latitude, longitude, (error, forecastData) => {
         if (error) {
             return console.log('Error', error);
         }
-        console.log(data.location);
+        console.log(location);
         console.log(forecastData);
     });
 });
