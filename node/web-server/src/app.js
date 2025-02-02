@@ -1,6 +1,8 @@
 import path, { dirname } from 'path';
 import express from 'express';
 import hbs from 'hbs';
+import { geocode } from './utils/geocode.js';
+import { forecast } from './utils/forecast.js';
 
 const app = express();
 
@@ -31,8 +33,24 @@ app.get('/about', (req, res) => {
 });
 
 app.get('/weather', (req, res) => {
-    res.send('Weather Page');
-
+if(!req.query.adress){
+    return res.send('Provide adress input')
+}
+geocode(req.query.adress, (error, {longitude, latitude, location}={}) => {
+    if (error) {
+        return res.send({ error });
+    }
+    forecast(latitude, longitude, (error, forecastData) => {
+        if (error) {
+            return res.send({ error });
+        }
+        res.send({
+            forecast: forecastData,
+            location,
+            adress: req.query.adress
+        });
+    });
+});
 });
 
 app.get('/help', (req, res) => {
@@ -59,6 +77,6 @@ app.get('*', (req, res) => {
     });
 });
 
-app.listen(3049, () => {
-    console.log('Server is running on http://localhost:3049');
+app.listen(3000, () => {
+    console.log('Server is running on http://localhost:3000');
 });
