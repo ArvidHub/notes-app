@@ -1,21 +1,25 @@
-import path, { dirname } from 'path';
 import express from 'express';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
 import hbs from 'hbs';
 import { geocode } from './utils/geocode.js';
 import { forecast } from './utils/forecast.js';
 
 const app = express();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
-// define paths for Express config
-const publicDirectoryPath = path.join(dirname('./'), '../public');
-const viewsPath = path.join(dirname('./'), '../templates/views');
-const partialsPath = path.join(dirname('./'), '../templates/partials');
+// Define paths for Express config
+const publicDirectoryPath = join(__dirname, '../public');
+const viewsPath = join(__dirname, '../templates/views');
+const partialsPath = join(__dirname, '../templates/partials');
 
+// Setup handlebars engine and views location
 app.set('view engine', 'hbs');
 app.set('views', viewsPath);
 hbs.registerPartials(partialsPath);
 
-// setup static directory to serve
+// Setup static directory to serve
 app.use(express.static(publicDirectoryPath));
 
 app.get('/', (req, res) => {
