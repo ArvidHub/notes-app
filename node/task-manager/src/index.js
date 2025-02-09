@@ -2,6 +2,7 @@ import express from 'express'
 import './db/mongoose.js'
 import taskRouter from './routers/task.js'
 import userRouter from './routers/user.js'
+import jwt from 'jsonwebtoken'
 
 const app = express()
 
