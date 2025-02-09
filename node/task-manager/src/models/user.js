@@ -2,6 +2,7 @@ import mongoose from 'mongoose'
 import validator from 'validator'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import Task from './task.js'
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -37,7 +38,16 @@ tokens: [{
         type: String,
         required: true
     }
-}]
+}]},
+{
+    timestamps: true
+    }
+)
+
+userSchema.virtual('tasks', {
+    ref: 'Task',
+    localField: '_id',
+    foreignField: 'owner'
 })
 
 userSchema.methods.toJSON = function () {
@@ -80,6 +90,12 @@ userSchema.pre('save', async function(next){
     if (this.isModified('password')){
         this.password = await bcrypt.hash(this.password, 8)
     }
+    next()
+})
+
+userSchema.pre('deleteOne', { document: true }, async function(next) {
+    const user = this
+    await Task.deleteMany({ owner: user._id })
     next()
 })
 

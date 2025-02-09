@@ -8,8 +8,15 @@ const router = new express.Router()
 
 router.get('/tasks', auth, async (req, res) => {
     try {
-        const tasks = await Task.find({owner:req.user._id})
-        res.status(200).send(tasks)
+        const match = {}
+        if (req.query.completed){
+            match.completed = req.query.completed ==='true'
+        }
+        await req.user.populate({
+            path: 'tasks',
+            match
+        })
+        res.status(200).send(req.user.tasks)
     } catch (e) {
         res.status(500).send(e)
     }
