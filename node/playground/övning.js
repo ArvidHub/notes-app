@@ -1,4 +1,4 @@
-import fs from 'fs';
+import fs from 'fs'
 
 const dataBuffer = fs.readFileSync('övning.json')
 const dataJSON = dataBuffer.toString()

@@ -13,7 +13,7 @@ router.get('/users', async (req, res) => {
 })
 
 router.get('/users/:id', async (req, res) => {
-    const _id = req.params.id;
+    const _id = req.params.id
 
     if (!mongoose.Types.ObjectId.isValid(_id)) {
         return res.status(400).send({ error: 'Invalid ID format' })
@@ -41,6 +41,15 @@ router.post('/users', async (req, res) => {
     }
 })
 
+router.post('/users/login', async (req, res) => {
+    try{
+        const user = await User.findByCredentials(req.body.email, req.body.password)
+        res.send(user)
+    }catch(e){
+        res.status(400).send()
+    }
+})
+
 router.patch('/users/:id', async (req, res) => {
     const updates = Object.keys(req.body)
     const allowedUpdates = ['name', 'email', 'password', 'age']
@@ -51,10 +60,16 @@ router.patch('/users/:id', async (req, res) => {
     }
 
     try {
-        const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true })
+        const user = await User.findById(req.params.id)
+        
         if (!user) {
             return res.status(404).send()
         }
+
+        updates.forEach((update) => user[update] = req.body[update]);
+        
+        await user.save()
+        
         res.status(200).send(user)
     } catch (e) {
         res.status(400).send(e)
@@ -79,4 +94,4 @@ router.delete('/users/:id', async (req, res) => {
     }
 })
 
-export default router;
+export default router

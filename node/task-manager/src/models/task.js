@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from "mongoose"
 const Task = mongoose.model('Task', {
     description: {
         type: String,
@@ -9,5 +9,5 @@ const Task = mongoose.model('Task', {
         type: Boolean,
         default: false
     }
-}); 
-export default Task;
+}) 
+export default Task

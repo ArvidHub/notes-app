@@ -1,7 +1,7 @@
-import * as notes from './notes.js';
-import chalk from 'chalk';
-import yargs from 'yargs';
-import { hideBin } from 'yargs/helpers';
+import * as notes from './notes.js'
+import chalk from 'chalk'
+import yargs from 'yargs'
+import { hideBin } from 'yargs/helpers'
 
 // Configure yargs
 yargs(hideBin(process.argv))
@@ -21,7 +21,7 @@ yargs(hideBin(process.argv))
             }
         },
         handler(argv) {
-            notes.addNotes(argv.title, argv.body);
+            notes.addNotes(argv.title, argv.body)
         }
     })
     .command({
@@ -35,7 +35,7 @@ yargs(hideBin(process.argv))
             }
         },
         handler(argv) {
-            notes.removeNotes(argv.title);
+            notes.removeNotes(argv.title)
         }
     })
     .command({
@@ -49,14 +49,14 @@ yargs(hideBin(process.argv))
             }
         },
         handler(argv) {
-            notes.readNote(argv.title);
+            notes.readNote(argv.title)
         }
     })
     .command({
         command: 'list',
         describe: 'List all notes',
         handler() {
-            notes.listNotes();
+            notes.listNotes()
         }
     })
-    .parse();
+    .parse()
