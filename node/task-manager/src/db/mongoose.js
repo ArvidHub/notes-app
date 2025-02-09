@@ -1,10 +1,10 @@
-import mongoose from 'mongoose'
+import mongoose from "mongoose";
 
-const connectionURL = 'mongodb://127.0.0.1:27017/task-manager-api'
-mongoose.connect(connectionURL)
-    .then(() => {
-        console.log('Connected to MongoDB successfully!')
-    })
-    .catch((error) => {
-        console.log('Error connecting to MongoDB:', error)
-    })
+mongoose
+  .connect(process.env.MONGODB_URL)
+  .then(() => {
+    console.log("Connected to MongoDB successfully!");
+  })
+  .catch((error) => {
+    console.log("Error connecting to MongoDB:", error);
+  });
