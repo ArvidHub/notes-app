@@ -4,6 +4,8 @@ import { fileURLToPath } from 'url'
 import { dirname, join } from 'path'
 import { Server } from 'socket.io'
 import { Filter } from 'bad-words'
+import generateMessage from './utils/messages.js'
+import generateLocationMessage from './utils/locationMessages.js'
 
 const app = express()
 const server = createServer(app)
@@ -16,6 +18,9 @@ app.use(express.static(join(__dirname, '../public')))
 io.on('connection', (socket) => {
   console.log('New websocket connection')
 
+  socket.emit('message', generateMessage('Welcome!'))
+  socket.broadcast.emit('message', generateMessage('A new user has joined!'))
+
   socket.on('sendMessage', (message, callback) => {
     const filter = new Filter()
 
@@ -23,11 +28,14 @@ io.on('connection', (socket) => {
       return callback('Profanity is not allowed')
     }
     callback()
-    io.emit('message', message)
+    io.emit('message', generateMessage(message))
   })
 
   socket.on('sendLocation', ({ lat, long }, callback) => {
-    io.emit('locationMessage', `https://google.com/maps?q=${lat},${long}`)
+    io.emit(
+      'locationMessage',
+      generateLocationMessage(`https://google.com/maps?q=${lat},${long}`)
+    )
     callback()
   })
 })
